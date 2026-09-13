@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Saran Page — sites e páginas de venda</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0e1a2b;
+    --panel: #142640;
+    --panel-line: #24405f;
+    --grid-line: rgba(255,255,255,0.05);
+    --ink: #eef3fa;
+    --ink-muted: #93a8c4;
+    --accent: #ffb627;
+    --accent-ink: #1a1200;
+    --line: #5fd3c4;
+  }
+  *{ box-sizing: border-box; }
+  html,body{ margin:0; padding:0; }
+  body{
+    background:
+      linear-gradient(var(--grid-line) 1px, transparent 1px) 0 0 / 40px 40px,
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px) 0 0 / 40px 40px,
+      var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.55;
+  }
+  .wrap{ max-width: 760px; margin: 0 auto; padding: 64px 24px 80px; }
+
+  /* ---------- hero ---------- */
+  .hero{ position: relative; padding: 28px 28px 36px; margin-bottom: 56px; }
+  .hero::before, .hero::after,
+  .crop-tr, .crop-bl{
+    content: ""; position: absolute; width: 22px; height: 22px;
+    border-color: var(--line); border-style: solid; opacity: .8;
+  }
+  .hero::before{ top:0; left:0; border-width: 2px 0 0 2px; }
+  .crop-tr{ top:0; right:0; border-width: 2px 2px 0 0; }
+  .hero::after{ bottom:0; left:0; border-width: 0 0 2px 2px; }
+  .crop-bl{ bottom:0; right:0; border-width: 0 2px 2px 0; }
+
+  .kicker{
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 14px;
+    color: var(--line);
+    margin: 0 0 18px;
+  }
+  h1{
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 42px;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin: 0 0 20px;
+    max-width: 15ch;
+  }
+  .lead{ font-size: 18px; color: var(--ink); max-width: 46ch; margin: 0 0 12px; }
+  .clarify{ font-size: 15px; color: var(--ink-muted); max-width: 46ch; margin: 0 0 28px; }
+  .clarify strong{ color: var(--ink); font-weight: 600; }
+
+  .cta{
+    display: inline-block;
+    background: var(--accent);
+    color: var(--accent-ink);
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    text-decoration: none;
+    padding: 15px 26px;
+    border-radius: 3px;
+  }
+  .cta:hover{ background: #ffc75c; }
+  .cta-note{ font-size: 13px; color: var(--ink-muted); margin-top: 12px; }
+
+  /* ---------- sections ---------- */
+  section{ margin-bottom: 56px; }
+  h2{
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    margin: 0 0 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--panel-line);
+  }
+
+  /* recebe: itemized spec list */
+  .spec-list{ list-style: none; margin: 0; padding: 0; }
+  .spec-list li{
+    display: flex; gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px dashed var(--panel-line);
+    color: var(--ink);
+    font-size: 15px;
+  }
+  .spec-list li:last-child{ border-bottom: none; }
+  .spec-list .mark{ color: var(--line); font-family: 'Space Grotesk', sans-serif; flex-shrink: 0; }
+
+  /* processo: sequência real, numeração faz sentido aqui */
+  .steps{ position: relative; padding-left: 34px; }
+  .steps::before{
+    content:""; position: absolute; left: 10px; top: 6px; bottom: 6px;
+    width: 1px; background: repeating-linear-gradient(var(--panel-line) 0 4px, transparent 4px 8px);
+  }
+  .step{ position: relative; padding-bottom: 26px; }
+  .step:last-child{ padding-bottom: 0; }
+  .step::before{
+    content: attr(data-n);
+    position: absolute; left: -34px; top: 0;
+    width: 21px; height: 21px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    color: var(--line);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 11px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--bg);
+  }
+  .step b{ display:block; font-size: 15px; margin-bottom: 4px; }
+  .step p{ margin: 0; color: var(--ink-muted); font-size: 14px; max-width: 48ch; }
+
+  /* pacotes: tabela comparativa, nao cards identicos */
+  .table-wrap{ overflow-x: auto; }
+  table{ width: 100%; border-collapse: collapse; font-size: 14px; min-width: 520px; }
+  th, td{ text-align: left; padding: 12px 14px; border-bottom: 1px solid var(--panel-line); vertical-align: top; }
+  th{
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    color: var(--ink);
+    background: var(--panel);
+    font-size: 13px;
+  }
+  th:first-child, td:first-child{ color: var(--ink-muted); width: 30%; }
+  td{ color: var(--ink); }
+  tr:last-child td{ border-bottom: none; }
+
+  .final-cta{
+    background: var(--panel);
+    border: 1px solid var(--panel-line);
+    padding: 32px 28px;
+    text-align: left;
+  }
+  .final-cta h2{ border: none; padding: 0; margin-bottom: 10px; }
+  .final-cta p{ color: var(--ink-muted); font-size: 14px; margin: 0 0 20px; max-width: 46ch; }
+
+  footer{ margin-top: 48px; font-size: 13px; color: var(--ink-muted); }
+
+  @media (max-width: 560px){
+    .wrap{ padding: 40px 18px 56px; }
+    h1{ font-size: 32px; }
+    table{ min-width: 0; }
+    th, td{ padding: 10px; font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <span class="crop-tr"></span><span class="crop-bl"></span>
+    <p class="kicker">Saran Page</p>
+    <h1>Sua oferta merece um site que fecha venda.</h1>
+    <p class="lead">Você vende produto, serviço ou conta. Eu construo o site ou a página de vendas — pronta pra receber tráfego.</p>
+    <p class="clarify"><strong>Não é curso, não é mentoria.</strong> É o arquivo pronto na sua mão: site ou página de vendas em HTML.</p>
+    <a class="cta" href="https://discord.gg/kQ3WYrvMN">Falar no Discord</a>
+    <p class="cta-note">No PV manda: o que você vende, o ticket, e se quer site, página ou os dois.</p>
+  </div>
+
+  <section>
+    <h2>O que você recebe</h2>
+    <ul class="spec-list">
+      <li><span class="mark">＋</span> Copy da oferta — o texto que efetivamente vende</li>
+      <li><span class="mark">＋</span> Layout pensado pra conversão, não só pra ficar bonito</li>
+      <li><span class="mark">＋</span> Arquivo HTML pronto pra abrir em qualquer navegador</li>
+      <li><span class="mark">＋</span> Ajuste de cores, botão, preço e chamada pra ação</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Como funciona</h2>
+    <div class="steps">
+      <div class="step" data-n="1">
+        <b>Você me manda a oferta</b>
+        <p>O que vende, pra quem vende, e onde quer receber o cliente — WhatsApp, Pix ou Discord.</p>
+      </div>
+      <div class="step" data-n="2">
+        <b>Eu construo a página</b>
+        <p>Escrevo a copy e monto o layout com base no que você vende de verdade.</p>
+      </div>
+      <div class="step" data-n="3">
+        <b>Você revisa</b>
+        <p>Ajusto cores, textos e botão até ficar do jeito que você quer.</p>
+      </div>
+      <div class="step" data-n="4">
+        <b>Entrega em HTML</b>
+        <p>Arquivo pronto pra hospedar ou colar o link direto no anúncio.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Pacotes</h2>
+    <div class="table-wrap">
+      <table>
+        <tr>
+          <th></th>
+          <th>Página</th>
+          <th>Site</th>
+          <th>Página + site</th>
+        </tr>
+        <tr>
+          <td>O que é</td>
+          <td>1 landing de venda</td>
+          <td>Página maior, várias seções</td>
+          <td>Landing de venda + site de apresentação</td>
+        </tr>
+        <tr>
+          <td>Revisões</td>
+          <td>1</td>
+          <td>2</td>
+          <td>2</td>
+        </tr>
+        <tr>
+          <td>Entrega</td>
+          <td>HTML</td>
+          <td>HTML</td>
+          <td>HTML (2 arquivos)</td>
+        </tr>
+        <tr>
+          <td>Ideal pra</td>
+          <td>Testar uma oferta rápido</td>
+          <td>Passar credibilidade</td>
+          <td>Quem quer fechar e parecer loja</td>
+        </tr>
+      </table>
+    </div>
+  </section>
+
+  <section class="final-cta">
+    <h2>Quero minha página</h2>
+    <p>Manda no Discord o que você vende, o ticket e qual pacote faz sentido pro seu momento.</p>
+    <a class="cta" href="https://discord.gg/kQ3WYrvMN">Entrar no Discord</a>
+  </section>
+
+  <footer>Saran Page — sites e páginas de venda. Você coloca o tráfego.</footer>
+
+</div>
+</body>
+</html>
